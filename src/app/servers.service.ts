@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { throwError } from 'rxjs';
 
 
 @Injectable()
@@ -13,12 +15,15 @@ export class ServerService {
   }
 
   getServers() {
-    return this.http.get('https://udemy-ng-http-alchemy.firebaseio.com/data.json')
+    return this.http.get('https://udemy-ng-http-alchemy.firebaseio.com/data')
       .pipe(map((response: Response) => response
         .json()
         .map(server => {
           server.name = `FETCHED_${server.name}`;
           return server;
-        })));
+        })))
+        .pipe(catchError((error: Response) => {
+          return throwError('Something went wrong!');
+        }));
   }
 }
