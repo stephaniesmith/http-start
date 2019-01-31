@@ -14,6 +14,11 @@ export class ServerService {
 
   getServers() {
     return this.http.get('https://udemy-ng-http-alchemy.firebaseio.com/data.json')
-      .pipe(map((response: Response) => response.json()));
+      .pipe(map((response: Response) => response
+        .json()
+        .map(server => {
+          server.name = `FETCHED_${server.name}`;
+          return server;
+        })));
   }
 }
