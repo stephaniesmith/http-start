@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ServerService } from './servers.service';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-root',
