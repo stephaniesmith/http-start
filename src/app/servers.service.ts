@@ -15,7 +15,7 @@ export class ServerService {
   }
 
   getServers() {
-    return this.http.get('https://udemy-ng-http-alchemy.firebaseio.com/data')
+    return this.http.get('https://udemy-ng-http-alchemy.firebaseio.com/data.json')
       .pipe(map((response: Response) => response
         .json()
         .map(server => {
@@ -25,5 +25,10 @@ export class ServerService {
         .pipe(catchError((error: Response) => {
           return throwError('Something went wrong!');
         }));
+  }
+
+  getAppName() {
+    return this.http.get('https://udemy-ng-http-alchemy.firebaseio.com/appName.json')
+      .pipe(map((response: Response) => response.json()));
   }
 }
