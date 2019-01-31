@@ -27,6 +27,7 @@ export class AppComponent {
       id: this.generateId()
     });
   }
+
   onSave() {
     this.serverService.storeService(this.servers)
       .subscribe(
@@ -34,6 +35,18 @@ export class AppComponent {
         error => console.error(error),
       );
   }
+
+  onGet() {
+    this.serverService.getServers()
+      .subscribe(
+        (response: Response) => {
+          const data = response.json();
+          console.log(data);
+        },
+        error => console.error(error),
+      );
+  }
+
   private generateId() {
     return Math.round(Math.random() * 10000);
   }
